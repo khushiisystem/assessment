@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  AWS_REGION: ap-northeast-1
+  AWS_REGION: ap-southeast-1
   FRONTEND_ECR: my-app-frontend
   BACKEND_ECR: my-app-backend
   ECS_CLUSTER: my-app-cluster
@@ -63,7 +63,7 @@ jobs:
       - name: Build & Push Frontend Image
         run: |
           IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/${{ env.FRONTEND_ECR }}:latest
-          docker build -t $IMAGE_URI ./frontend/FE-Portal
+          docker build -t $IMAGE_URI -f frontend/FE-Portal/Dockerfile frontend/FE-Portal
           docker push $IMAGE_URI
 
       - name: Deploy Frontend to ECS
@@ -98,7 +98,7 @@ jobs:
       - name: Build & Push Backend Image
         run: |
           IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/${{ env.BACKEND_ECR }}:latest
-          docker build -t $IMAGE_URI ./backend/TranningAndCertification
+          docker build -t $IMAGE_URI -f backend/TranningAndCertification/Dockerfile backend/TranningAndCertification
           docker push $IMAGE_URI
 
       - name: Deploy Backend to ECS
