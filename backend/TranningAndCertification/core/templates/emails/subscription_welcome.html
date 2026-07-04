@@ -1,0 +1,38 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Welcome to SkilTechy{% endblock %}
+{% block preheader %}Your SkilTechy account is ready — you're on the Free Tier plan.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    Welcome, {{ first_name }} 👋
+  </h1>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    Your account has been created successfully on <strong>SkilTechy</strong>. You're all set to start assessing and upskilling.
+  </p>
+
+  <!-- Plan details -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Your Plan</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Plan:</strong> Free Tier</p>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CTA button -->
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td style="border-radius:8px; background-color:#7c3aed;">
+        <a href="{{ login_url }}" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:8px;">
+          Log In to SkilTechy
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0; font-size:13px; color:#94a3b8;">
+    If the button doesn't work, log in at <a href="{{ login_url }}" style="color:#7c3aed; text-decoration:none;">{{ login_url }}</a>
+  </p>
+{% endblock %}

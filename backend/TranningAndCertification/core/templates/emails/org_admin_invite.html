@@ -1,0 +1,40 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}You're invited to administer {{ organization_name }}{% endblock %}
+{% block preheader %}You've been invited as an administrator on SkilTechy — set your password to get started.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    Hi {{ first_name }} 👋
+  </h1>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    You've been invited as an <strong>administrator</strong> for <strong>{{ organization_name }}</strong> on <strong>SkilTechy</strong>. Set your password below to activate your account and get started.
+  </p>
+
+  <!-- CTA button -->
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td style="border-radius:8px; background-color:#7c3aed;">
+        <a href="{{ invite_link }}" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:8px;">
+          Set Your Password
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Fallback link -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 18px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Or paste this link</p>
+        <p style="margin:4px 0; font-size:13px; color:#334155; word-break:break-all;">
+          <a href="{{ invite_link }}" style="color:#7c3aed; text-decoration:none;">{{ invite_link }}</a>
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0; font-size:13px; color:#94a3b8;">
+    This is a single-use link — it stops working once you've set your password.
+  </p>
+{% endblock %}

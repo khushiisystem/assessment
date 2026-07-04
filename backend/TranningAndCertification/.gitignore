@@ -1,0 +1,75 @@
+## Environments
+zdenv/
+zenv/
+.venv
+credentials.json
+# Django
+*.log
+logs/
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+db.sqlite3
+dbb.sqlite3
+media/
+staticfiles/
+staticfiles/*
+
+# Virtual environment
+venv/
+venv312/
+myenv/
+ENV/
+temp_resumes/
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# put dist in ignore
+dist/
+new_core/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*
+!.env.example
+db.sqlite3
+*.sqlite3
+
+
+# Database backups
+*.backup
+*.dump
+
+# Temporary files
+tmp/
+temp/
+PROCTORING_DISABLED_SUMMARY.md
+add_test_data.py
+
+# terraform stuff
+.terraform/
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+
+management/zdenv/
+zdenv/
+
+vertex-key.json
+
+test_gemini.py

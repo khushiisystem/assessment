@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interview Assignment</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .header .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .assessment-info {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .feature-list {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            color: #007bff;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            transition: transform 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="icon">🤖</div>
+            <h1>AI Interview Assignment</h1>
+            <p>You've been assigned a new AI-powered interview</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h2>Hello {{ candidate_name }},</h2>
+            
+            <p>You have been assigned an AI-powered interview assessment. This is an innovative interview experience that uses artificial intelligence to generate personalized questions and provide detailed feedback.</p>
+
+            <!-- Assessment Details -->
+            <div class="assessment-info">
+                <h3>📋 Assessment Details</h3>
+                <ul>
+                    <li><strong>Title:</strong> {{ assessment_title }}</li>
+                    <li><strong>Role:</strong> {{ role_type }}</li>
+                    <li><strong>Experience Level:</strong> {{ experience_level }}</li>
+                    <li><strong>Duration:</strong> {{ duration }} minutes</li>
+                    <li><strong>Questions:</strong> {{ num_questions }} AI-generated questions</li>
+                    <li><strong>Available From:</strong> {{ start_date|date:"M d, Y h:i A" }}</li>
+                    <li><strong>Available Until:</strong> {{ end_date|date:"M d, Y h:i A" }}</li>
+                </ul>
+            </div>
+
+            <!-- Features -->
+            <div class="feature-list">
+                <h4>🚀 AI Interview Features</h4>
+                <div class="feature-item">
+                    <span class="feature-icon">🤖</span>
+                    <span>Personalized questions generated based on your profile</span>
+                </div>
+                {% if features.voice_recording %}
+                <div class="feature-item">
+                    <span class="feature-icon">🎤</span>
+                    <span>Voice recording with automatic transcription</span>
+                </div>
+                {% endif %}
+                {% if features.camera %}
+                <div class="feature-item">
+                    <span class="feature-icon">📹</span>
+                    <span>Camera monitoring for interview integrity</span>
+                </div>
+                {% endif %}
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <span>AI-powered feedback and scoring</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🔊</span>
+                    <span>Text-to-speech for question reading</span>
+                </div>
+            </div>
+
+            {% if instructions %}
+            <!-- Instructions -->
+            <div class="warning-box">
+                <h4>📝 Special Instructions</h4>
+                <p>{{ instructions|linebreaks }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Important Notes -->
+            <div class="warning-box">
+                <h4>⚠️ Important Notes</h4>
+                <ul>
+                    <li>Ensure you have a stable internet connection</li>
+                    <li>Use a quiet environment for best results</li>
+                    {% if features.camera %}
+                    <li>Make sure your camera is working and you're well-lit</li>
+                    {% endif %}
+                    {% if features.voice_recording %}
+                    <li>Test your microphone before starting</li>
+                    {% endif %}
+                    <li>Complete the interview in one session - you cannot pause</li>
+                    <li>Answer all questions thoughtfully and completely</li>
+                </ul>
+            </div>
+
+            <!-- CTA Button -->
+            <div style="text-align: center;">
+                <a href="{{ assessment_url }}" class="cta-button">
+                    🚀 Start AI Interview
+                </a>
+            </div>
+
+            <p><strong>Assessment Link:</strong> <a href="{{ assessment_url }}">{{ assessment_url }}</a></p>
+
+            <p>Good luck with your AI interview! The system will provide detailed feedback on your performance including technical competency, communication skills, and problem-solving approach.</p>
+
+            <p>If you have any technical issues, please contact the administrator immediately.</p>
+
+            <p>Best regards,<br>
+            Assessment Team</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>This is an automated message from the Online Assessment Platform.</p>
+            <p>Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>

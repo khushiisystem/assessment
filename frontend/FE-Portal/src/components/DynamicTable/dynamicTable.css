@@ -1,0 +1,42 @@
+/* Default ("fit") tables fill the container and let columns shrink/wrap so the
+   grid never scrolls horizontally on any screen size.
+
+   react-data-table-component defaults its cells to `flex-shrink: 0` with a
+   `min-width: 100px`, which forces the row wider than the viewport. We override
+   that (via !important, since RDC injects its own styled-component rules) so
+   columns can compress and their content wraps/truncates instead.
+
+   Opt into horizontal scrolling for wide, many-column tables with the
+   `horizontalScroll` prop (adds `.dt-hscroll`): columns then keep their widths
+   and the responsive wrapper scrolls instead of cramming everything in. */
+
+.dt-fit .rdt_Table {
+  width: 100% !important;
+}
+
+.dt-fit .rdt_TableHeadRow,
+.dt-fit .rdt_TableRow {
+  width: 100% !important;
+}
+
+.dt-fit .rdt_TableCol,
+.dt-fit .rdt_TableCell {
+  min-width: 0 !important;
+  flex-shrink: 1 !important;
+}
+
+/* Long unbroken strings (emails, urls) wrap instead of overflowing. */
+.dt-fit .rdt_TableCell {
+  overflow-wrap: anywhere;
+}
+
+/* Horizontal-scroll mode: columns keep their natural/min widths and don't
+   shrink, so the row can exceed the container and the wrapper scrolls. */
+.dt-hscroll .rdt_TableCol,
+.dt-hscroll .rdt_TableCell {
+  flex-shrink: 0 !important;
+}
+
+.dt-hscroll .rdt_TableCell {
+  white-space: nowrap;
+}

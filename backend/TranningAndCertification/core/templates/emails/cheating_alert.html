@@ -1,0 +1,57 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Proctoring Alert — SkilTechy{% endblock %}
+{% block preheader %}A proctoring incident was detected during your assessment on SkilTechy.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    ⚠️ Proctoring Alert
+  </h1>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569; line-height:1.7;">
+    This is an automated notification regarding a proctoring incident detected during your assessment.
+  </p>
+
+  <!-- Incident details (warning accent) -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#fef2f2; border:1px solid #fecaca; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#dc2626;">⚠️ Incident Detected</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Name:</strong> {{ candidate.get_full_name|default:candidate.username }},</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Assessment:</strong> {{ assessment.title }}</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Incident Type:</strong> <strong>{{ incident_type }}</strong></p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Severity:</strong> <strong>{{ severity }}</strong></p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Time:</strong> {{ timestamp|date:"F d, Y at h:i:s A" }}</p>
+        {% if details %}
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Details:</strong> {{ details }}</p>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0 0 8px 0; font-size:14px; color:#0f172a;"><strong>Important Information:</strong></p>
+  <ul style="margin:0 0 24px 20px; padding:0; font-size:14px; color:#475569; line-height:1.7;">
+    <li>All proctoring incidents are recorded and reviewed by the examination team</li>
+    <li>Multiple violations may result in disqualification</li>
+    <li>Please ensure you follow all assessment guidelines</li>
+    <li>Contact support if you believe this is an error</li>
+  </ul>
+
+  <p style="margin:0 0 8px 0; font-size:14px; color:#0f172a;"><strong>Assessment Guidelines:</strong></p>
+  <ul style="margin:0 0 24px 20px; padding:0; font-size:14px; color:#475569; line-height:1.7;">
+    <li>Keep your face clearly visible to the camera at all times</li>
+    <li>Do not use mobile phones or unauthorized devices</li>
+    <li>Maintain eye contact with the screen</li>
+    <li>Do not switch tabs or exit fullscreen mode</li>
+    <li>Ensure no other person is present in the frame</li>
+  </ul>
+
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    Best regards,<br>
+    <strong style="color:#0f172a;">SkilTechy Proctoring Team</strong>
+  </p>
+
+  <p style="margin:0; font-size:13px; color:#94a3b8;">
+    This is an automated alert from the SkilTechy AI Proctoring System.
+    If you have questions, please contact your assessment administrator.
+  </p>
+{% endblock %}

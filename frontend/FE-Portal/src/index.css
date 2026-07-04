@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 212 85% 23%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 212 85% 23%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 212 85% 23%;
+
+    --primary: 280 86% 20%;
+    --primary-foreground: 0 0% 100%;
+
+    --primary-light: 280 70% 32%;
+    --primary-lighter: 280 65% 45%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 212 85% 23%;
+
+    --muted: 210 30% 94%;
+    --muted-foreground: 212 30% 45%;
+
+    --accent: 280 86% 20%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 145 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 30% 88%;
+    --input: 214 30% 88%;
+    --ring: 262 83% 58%;
+
+    --radius: 0.5rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(280 86% 20%), hsl(262 83% 58%));
+    --gradient-accent: linear-gradient(135deg, hsl(200 80% 45%), hsl(212 75% 35%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 20% 98%));
+    
+    --shadow-soft: 0 2px 8px -2px hsl(212 85% 23% / 0.1);
+    --shadow-medium: 0 4px 16px -4px hsl(212 85% 23% / 0.15);
+    --shadow-strong: 0 8px 24px -8px hsl(212 85% 23% / 0.2);
+
+    --sidebar-background: 212 85% 23%;
+    --sidebar-foreground: 210 30% 95%;
+    --sidebar-primary: 212 75% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 212 70% 30%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 212 60% 30%;
+    --sidebar-ring: 200 80% 45%;
+  }
+
+  .dark {
+    --background: 212 75% 12%;
+    --foreground: 210 30% 95%;
+
+    --card: 212 70% 15%;
+    --card-foreground: 210 30% 95%;
+
+    --popover: 212 70% 15%;
+    --popover-foreground: 210 30% 95%;
+
+    --primary: 212 60% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 212 70% 60%;
+    --primary-lighter: 212 80% 70%;
+
+    --secondary: 212 60% 20%;
+    --secondary-foreground: 210 30% 95%;
+
+    --muted: 212 50% 18%;
+    --muted-foreground: 210 20% 65%;
+
+    --accent: 200 80% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 145 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 212 50% 25%;
+    --input: 212 50% 25%;
+    --ring: 212 60% 50%;
+
+   --gradient-primary: linear-gradient(135deg, hsl(280 86% 20%), hsl(280 70% 32%));
+
+    --gradient-accent: linear-gradient(135deg, hsl(280 65% 45%), hsl(280 70% 32%));
+
+    --gradient-card: linear-gradient(180deg, hsl(280 86% 16%), hsl(280 86% 12%));
+
+    --shadow-soft: 0 2px 8px -2px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 4px 16px -4px hsl(0 0% 0% / 0.4);
+    --shadow-strong: 0 8px 24px -8px hsl(0 0% 0% / 0.5);
+
+    --sidebar-background: 212 80% 10%;
+    --sidebar-foreground: 210 30% 95%;
+    --sidebar-primary: 212 70% 25%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 212 60% 20%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 212 50% 15%;
+    --sidebar-ring: 200 80% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .prose-invert table thead th {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+  }
+
+  .prose-invert table th,
+  .prose-invert table td {
+    border-color: hsl(var(--border));
+  }
+}
+/* Change focus:bg-accent color */
+
+
+@layer utilities {
+  .bg-blue-600 {
+    background-color: #3d075f !important;
+  }
+
+  .hover\:bg-blue-700:hover {
+    background-color: #2c0445 !important;
+  }
+
+  .text-blue-600 {
+    color: #3d075f !important;
+  }
+
+  .border-blue-600 {
+    border-color: #3d075f !important;
+  }
+    .focus\:bg-accent:focus {
+    background-color: #3d075f !important;
+    color: white !important;
+  }
+}
+
+/* */
+.gap-2{
+  gap: 10px;
+}
+
+.admin_dashboard_card .text-muted-foreground {
+    font-weight: 600;
+    font-size: 14px;
+}
+.results-card .text-muted-foreground {
+    font-size: 14px;
+}
+.course_card  .text-card-foreground{
+  background: linear-gradient(1deg, #f2f2f2, #00000000);
+} 
+
+.cources_card .item_1{background: #0955a7;}
+.cources_card .item_2{background: #09376d;}
+.cources_card .item_3{background: #23c366}
+.cources_card .item_4{background: #ef6262}
+.cources_card .item_5{background: #eab40b}
+.cources_card .item_6{background: #2f9cd4}
+
+/* Landing page Swiper */
+.course-swiper .swiper-pagination-bullet {
+  background: #a1a1aa;
+  opacity: 1;
+}
+.course-swiper .swiper-pagination-bullet-active {
+  background: #18181b;
+  width: 24px;
+  border-radius: 9999px;
+}
+.course-swiper .swiper-button-next,
+.course-swiper .swiper-button-prev {
+  color: #18181b;
+}
+
+.testimonials-swiper .swiper-slide {
+  height: auto;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+.landing-page, .login-screen {
+  font-family:"Space Grotesk", sans-serif;
+}
+:text-6xl{
+  line-height: 1.3;
+}

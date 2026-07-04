@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border: 1px solid #dee2e6;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⏰ Reminder: AI Interview Pending</h1>
+    </div>
+    
+    <div class="content">
+        <p>Dear {{ candidate_name }},</p>
+        
+        <p>This is a friendly reminder that you have a pending AI interview assessment:</p>
+        
+        <div class="warning">
+            <strong>{{ assessment_title }}</strong>
+            <br>
+            <strong>Deadline:</strong> {{ end_date|date:"F d, Y H:i" }}
+        </div>
+        
+        <p>Please complete your assessment before the deadline to ensure your submission is recorded.</p>
+        
+        <div style="text-align: center;">
+            <a href="{{ assessment_url }}" class="button">Start AI Interview Now</a>
+        </div>
+        
+        <p><strong>Important:</strong></p>
+        <ul>
+            <li>Make sure you have a stable internet connection</li>
+            <li>Ensure your camera and microphone are working properly</li>
+            <li>Find a quiet place with good lighting</li>
+            <li>Complete the assessment in one sitting</li>
+        </ul>
+        
+        <p>If you have any questions or face any technical issues, please contact your administrator.</p>
+        
+        <p>Best regards,<br>Assessment Team</p>
+    </div>
+    
+    <div class="footer">
+        <p>This is an automated reminder email. Please do not reply to this email.</p>
+    </div>
+</body>
+</html>

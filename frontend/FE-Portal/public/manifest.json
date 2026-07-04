@@ -1,0 +1,25 @@
+{
+  "name": "SkilTechy – Learning & Assessment Platform",
+  "short_name": "SkilTechy",
+  "description": "AI-powered learning management and skill assessment platform for tech teams.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/SkilTechyFavicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/SkilTechyFavicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity", "business"]
+}

@@ -1,0 +1,55 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}New Course Assigned — SkilTechy{% endblock %}
+{% block preheader %}You've got a new course: {{ technology_name }}. Start learning on SkilTechy today.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    🚀 You've Got a New Course: {{ technology_name }}
+  </h1>
+  <p style="margin:0 0 6px 0; font-size:15px; color:#475569;">
+    Hello {{ first_name }},
+  </p>
+  <p style="margin:0 0 6px 0; font-size:15px; color:#475569;">
+    Great news! 🎉
+  </p>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569; line-height:1.7;">
+    A new course has been assigned to you to help you level up your skills.
+  </p>
+
+  <!-- Course details -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">📘 Course: {{ technology_name }}</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Total Tasks:</strong> {{ total_questions }}</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Assigned By:</strong> {{ assigned_by }}</p>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0 0 24px 0; font-size:14px; color:#475569; line-height:1.7;">
+    Take the next step in your learning journey and start exploring the course today.
+    Every step you complete brings you closer to mastering new skills!
+  </p>
+
+  <!-- CTA button -->
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td style="border-radius:8px; background-color:#7c3aed;">
+        <a href="{{ login_url }}" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:8px;">
+          👉 Start your course now
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0 0 24px 0; font-size:14px; color:#475569;">
+    If you need any help, we're always here for you.
+  </p>
+
+  <p style="margin:0; font-size:15px; color:#475569;">
+    Cheers,<br>
+    <strong style="color:#0f172a;">SkilTechy Training Team</strong>
+  </p>
+{% endblock %}

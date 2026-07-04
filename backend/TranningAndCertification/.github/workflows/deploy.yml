@@ -1,0 +1,172 @@
+name: Deploy assessment Portal
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout (required even though deploy happens on server)
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Set environment dynamically
+      - name: Set Environment Variables
+        run: |
+          if [[ "${GITHUB_REF##*/}" == "main" ]]; then
+            echo "ENV=prod" >> $GITHUB_ENV
+            echo "DEPLOY_HOST=${{ secrets.DEPLOY_HOST }}" >> $GITHUB_ENV
+            echo "DEPLOY_USER=${{ secrets.DEPLOY_USER }}" >> $GITHUB_ENV
+            echo "DEPLOY_PORT=${{ secrets.DEPLOY_PORT }}" >> $GITHUB_ENV
+            echo "SERVICE=assessment" >> $GITHUB_ENV
+            echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+            # PROD PATHS
+            echo "APP_DIR=/home/zuserd/TranningAndCertification" >> $GITHUB_ENV
+            echo "DJANGO_DIR=/home/zuserd/TranningAndCertification" >> $GITHUB_ENV
+
+          else
+            echo "ENV=dev" >> $GITHUB_ENV
+            echo "DEPLOY_HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV
+            echo "DEPLOY_USER=${{ secrets.DEV_USER }}" >> $GITHUB_ENV
+            echo "DEPLOY_PORT=${{ secrets.DEV_PORT }}" >> $GITHUB_ENV
+            echo "SERVICE=dev-assessment" >> $GITHUB_ENV
+            echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+            # DEV PATHS
+            echo "APP_DIR=/home/dev_assessment/Assessment_Portal/TranningAndCertification" >> $GITHUB_ENV
+            echo "DJANGO_DIR=/home/dev_assessment/Assessment_Portal/TranningAndCertification" >> $GITHUB_ENV
+          fi
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ github.ref == 'refs/heads/main' && secrets.DEPLOY_SSH_KEY || secrets.DEV_DEPLOY_SSH_KEY }}
+          
+      # Trust server host key
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p $DEPLOY_PORT $DEPLOY_HOST >> ~/.ssh/known_hosts
+
+
+      # Deployment step
+      - name: Deploy to Server
+        run: |
+          ssh -p $DEPLOY_PORT $DEPLOY_USER@$DEPLOY_HOST << EOF
+            set -e  
+
+            APP_DIR=$APP_DIR
+            VENV=$APP_DIR/myenv
+            DJANGO_DIR=$APP_DIR
+            SERVICE="$SERVICE"
+            BRANCH="$BRANCH"
+
+            cd \$APP_DIR
+
+            echo "Previous commit: \$(git rev-parse HEAD)"
+
+            # # Pull latest code
+            # git fetch origin main
+            # git reset --hard origin/main
+
+            # Backup dist before reset
+            cp -r core/dist /tmp || true
+            
+            git fetch origin \$BRANCH
+            git reset --hard origin/\$BRANCH
+            
+            # Restore dist
+            cp -r /tmp/dist core/ || true
+
+            # Activate virtual environment and install dependencies
+            source \$VENV/bin/activate
+            pip install --upgrade --no-cache-dir --no-input -r \$APP_DIR/requirements.txt
+
+            # Run migrations and collect static files
+            cd \$DJANGO_DIR
+            python manage.py migrate --noinput
+            #python manage.py collectstatic --noinput 
+
+            deactivate
+
+            # Restart Django (Gunicorn) and reload Nginx
+            sudo systemctl restart  \$SERVICE && { echo "\$SERVICE service restarted successfully"; } || { echo " \$SERVICE service restart failed"; }
+            sudo systemctl reload nginx && { echo "Nginx reloaded successfully"; } || { echo "Nginx reload failed"; }
+      
+          EOF
+
+
+      # Health Check
+      - name: Health Check
+        run: |
+          if [ "$ENV" == "prod" ]; then
+            URL="https://skiltechy.com/admin/"
+          else
+            URL="https://dev-assessment.zecdata.com/admin/"
+          fi
+
+          echo "Checking $URL"
+
+          # Gunicorn needs a few seconds to come up after restart. Retry before
+          # declaring failure so a slow boot doesn't trigger an unnecessary rollback.
+          STATUS=000
+          for i in $(seq 1 10); do
+            STATUS=$(curl -k -s -o /dev/null -w "%{http_code}" -L "$URL" || echo 000)
+            if [ "$STATUS" -eq 200 ]; then
+              echo "Health check passed on attempt $i!"
+              break
+            fi
+            echo "Attempt $i/10: status $STATUS — waiting 10s…"
+            sleep 10
+          done
+
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Health check failed after retries! Status: $STATUS"
+            exit 1
+          fi
+
+
+      # Rollback if deployment or health check fails
+      - name: Rollback if Deployment Fails
+        if: failure()
+        run: |
+          ssh -p $DEPLOY_PORT  $DEPLOY_USER@$DEPLOY_HOST << EOF
+            set -e
+
+            APP_DIR=$APP_DIR
+            VENV=$APP_DIR/myenv
+            DJANGO_DIR=$APP_DIR
+            SERVICE="$SERVICE"
+            BRANCH="$BRANCH"
+
+            cd \$APP_DIR
+
+
+            echo "Rolling back to previous commit..."
+
+            if [ -f .git/ORIG_HEAD ]; then
+              ROLLBACK_COMMIT=\$(cat .git/ORIG_HEAD)
+              git reset --hard \$ROLLBACK_COMMIT
+              echo " Reset to commit \$ROLLBACK_COMMIT"
+            else
+              echo " No rollback commit found, cannot rollback"
+              exit 1
+            fi
+
+            # Reinstall dependencies for rollback version
+            source \$VENV/bin/activate
+            pip install --upgrade --no-cache-dir --no-input -r \$DJANGO_DIR/requirements.txt
+            deactivate
+
+            # Restart Django service + reload Nginx
+            sudo systemctl restart \$SERVICE
+            sudo systemctl reload nginx
+
+            echo " Rollback complete"
+          EOF

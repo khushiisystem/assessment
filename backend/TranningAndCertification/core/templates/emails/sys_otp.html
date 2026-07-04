@@ -1,0 +1,27 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Your SkilTechy OTP{% endblock %}
+{% block preheader %}Your one-time password for {{ purpose }} — valid for 10 minutes.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    Verify your {{ purpose }}
+  </h1>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    Use the one-time password below to complete your <strong>{{ purpose }}</strong> on <strong>SkilTechy</strong>.
+  </p>
+
+  <!-- OTP box -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px; text-align:center;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Your One-Time Password</p>
+        <p style="margin:4px 0; font-size:32px; font-weight:800; letter-spacing:0.18em; color:#0f172a;">{{ otp_code }}</p>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0; font-size:13px; color:#94a3b8;">
+    This OTP is valid for 10 minutes. If you didn't request it, you can safely ignore this email.
+  </p>
+{% endblock %}

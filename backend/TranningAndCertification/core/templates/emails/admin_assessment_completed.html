@@ -1,0 +1,69 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Assessment Completed — Admin Notification{% endblock %}
+{% block preheader %}{{ candidate.get_full_name|default:candidate.username }} completed {{ assessment.title }} — scored {{ score }}/{{ total_marks }} ({{ percentage|floatformat:1 }}%).{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    Assessment Completed 📊
+  </h1>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    Hello Admin, a candidate has completed an assessment on <strong>SkilTechy</strong>. Here are the details:
+  </p>
+
+  <!-- Assessment details -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 12px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Assessment Details</p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#0f172a; font-weight:600; width:40%;">Assessment:</td>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#334155;">{{ assessment.title }}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#0f172a; font-weight:600;">Candidate:</td>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#334155;">{{ candidate.get_full_name|default:candidate.username }} ({{ candidate.email }})</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#0f172a; font-weight:600;">Score:</td>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#334155;"><strong style="color:#0f172a;">{{ score }}/{{ total_marks }} ({{ percentage|floatformat:1 }}%)</strong></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; font-size:14px; color:#0f172a; font-weight:600;">Completed:</td>
+            <td style="padding:8px 0; font-size:14px; color:#334155;">{{ end_time|date:"F d, Y at h:i A" }}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Action required -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf5ff; border:1px solid #ede9fe; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Action Required</p>
+        <ul style="margin:0; padding:0 0 0 20px; font-size:14px; color:#334155; line-height:1.7;">
+          <li>Review subjective and coding responses</li>
+          <li>Provide detailed feedback to the candidate</li>
+          <li>Check for any proctoring incidents</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CTA button -->
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td style="border-radius:8px; background-color:#7c3aed;">
+        <a href="{{ SITE_URL }}/admin/results/" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:8px;">
+          View Results Dashboard
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0; font-size:13px; color:#94a3b8;">
+    This is an automated notification from SkilTechy.
+  </p>
+{% endblock %}

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>SkilTechy – AI-Powered Learning & Assessment Platform</title>
+    <meta name="description" content="SkilTechy is an AI-powered learning management and assessment platform that helps tech teams track progress, run skill assessments, and build expertise faster." />
+    <meta name="keywords" content="online assessment, skill assessment, tech learning, learning management system, employee training, coding test, AI assessment, certification platform, SkilTechy" />
+    <meta name="author" content="SkilTechy – Zecdata" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://assessment.zecdata.com/" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="color-scheme" content="light" />
+
+    <!-- Favicon & icons -->
+    <link rel="icon" type="image/png" href="/SkilTechyFavicon.png" />
+    <link rel="apple-touch-icon" href="/SkilTechyFavicon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SkilTechy" />
+    <meta property="og:url" content="https://assessment.zecdata.com/" />
+    <meta property="og:title" content="SkilTechy – AI-Powered Learning & Assessment Platform" />
+    <meta property="og:description" content="AI-powered assessments and learning management for tech teams. Track progress, assign content, and build expertise at scale." />
+    <meta property="og:image" content="https://assessment.zecdata.com/banner-1.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SkilTechy platform dashboard" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SkilTechy" />
+    <meta name="twitter:title" content="SkilTechy – AI-Powered Learning & Assessment Platform" />
+    <meta name="twitter:description" content="AI-powered assessments and learning management for tech teams. Track progress, assign content, and build expertise at scale." />
+    <meta name="twitter:image" content="https://assessment.zecdata.com/banner-1.png" />
+    <meta name="twitter:image:alt" content="SkilTechy platform dashboard" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://assessment.zecdata.com/#organization",
+          "name": "SkilTechy",
+          "url": "https://assessment.zecdata.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://assessment.zecdata.com/SkilTechyFavicon.png"
+          },
+          "description": "AI-powered learning management and skill assessment platform for tech teams.",
+          "sameAs": []
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://assessment.zecdata.com/#website",
+          "url": "https://assessment.zecdata.com",
+          "name": "SkilTechy",
+          "publisher": { "@id": "https://assessment.zecdata.com/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://assessment.zecdata.com/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "EducationalOrganization",
+          "@id": "https://assessment.zecdata.com/#edu",
+          "name": "SkilTechy Learning Platform",
+          "url": "https://assessment.zecdata.com",
+          "description": "Comprehensive online assessment and skill-development platform with AI-driven adaptive tests, certifications, and progress tracking."
+        }
+      ]
+    }
+    </script>
+
+    <style>
+      /* Inline critical CSS — shown instantly, no FOUC */
+      #app-loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #f8fafc;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      #app-loader .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid #e2e8f0;
+        border-top-color: #2563eb;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+
+  <body>
+    <div id="root">
+      <!-- Shown instantly while JS loads — eliminates white screen -->
+      <div id="app-loader">
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

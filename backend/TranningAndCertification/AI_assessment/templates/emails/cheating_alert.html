@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #dc3545; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0; }
+        .content { background-color: #f8f9fa; padding: 30px; border: 1px solid #dee2e6; }
+        .alert-box { background-color: #fff3cd; padding: 20px; margin: 20px 0; border-left: 4px solid #ffc107; border-radius: 4px; }
+        .critical { background-color: #f8d7da; border-left-color: #dc3545; }
+        .footer { text-align: center; padding: 20px; color: #6c757d; font-size: 12px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+        td:first-child { font-weight: bold; width: 40%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚠️ Proctoring Alert</h1>
+        </div>
+        <div class="content">
+            <!-- <p>Dear {{ candidate.get_full_name|default:candidate.username }},</p> -->
+            
+            <p>This is an automated notification regarding a proctoring incident detected during your assessment.</p>
+            
+            <div class="alert-box {% if severity == 'critical' %}critical{% endif %}">
+                <h3 style="margin-top: 0; color: #856404;">⚠️ Incident Detected</h3>
+                <table>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{ candidate.get_full_name|default:candidate.username }},</td>
+                    </tr>
+                    <tr>
+                        <td>Assessment:</td>
+                        <td>{{ assessment.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Incident Type:</td>
+                        <td><strong>{{ incident_type }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Severity:</td>
+                        <td><strong>{{ severity }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Time:</td>
+                        <td>{{ timestamp|date:"F d, Y at h:i:s A" }}</td>
+                    </tr>
+                    {% if details %}
+                    <tr>
+                        <td>Details:</td>
+                        <td>{{ details }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+            
+            <p><strong>Important Information:</strong></p>
+            <ul>
+                <li>All proctoring incidents are recorded and reviewed by the examination team</li>
+                <li>Multiple violations may result in disqualification</li>
+                <li>Please ensure you follow all assessment guidelines</li>
+                <li>Contact support if you believe this is an error</li>
+            </ul>
+            
+            <p><strong>Assessment Guidelines:</strong></p>
+            <ul>
+                <li>Keep your face clearly visible to the camera at all times</li>
+                <li>Do not use mobile phones or unauthorized devices</li>
+                <li>Maintain eye contact with the screen</li>
+                <li>Do not switch tabs or exit fullscreen mode</li>
+                <li>Ensure no other person is present in the frame</li>
+            </ul>
+            
+            <p style="margin-top: 30px;">Best regards,<br><strong>Proctoring Team</strong></p>
+        </div>
+        <div class="footer">
+            <p>This is an automated alert from the AI Proctoring System.</p>
+            <p>If you have questions, please contact your assessment administrator.</p>
+        </div>
+    </div>
+</body>
+</html>

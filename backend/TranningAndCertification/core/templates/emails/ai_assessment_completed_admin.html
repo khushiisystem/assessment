@@ -1,0 +1,125 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}AI Interview Completed{% endblock %}
+{% block preheader %}{{ candidate_name }} completed the {{ assessment_title }} AI interview — results and recordings are ready.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    AI Interview Completed 📊
+  </h1>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    Dear <strong>{{ admin_name }}</strong>, a candidate has completed the AI interview assessment you assigned on <strong>SkilTechy</strong>. Here are the details:
+  </p>
+
+  <!-- Candidate information -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 12px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Candidate Information</p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#0f172a; font-weight:600; width:40%;">Candidate Name:</td>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#334155;"><strong style="color:#0f172a;">{{ candidate_name }}</strong></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#0f172a; font-weight:600;">Email:</td>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#334155;">{{ candidate_email }}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#0f172a; font-weight:600;">Assessment:</td>
+            <td style="padding:8px 0; border-bottom:1px solid #eef2f7; font-size:14px; color:#334155;">{{ assessment_title }}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0; font-size:14px; color:#0f172a; font-weight:600;">Completed On:</td>
+            <td style="padding:8px 0; font-size:14px; color:#334155;">{{ completed_time|date:"F d, Y at H:i" }}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Performance scores -->
+  <p style="margin:0 0 12px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Performance Scores</p>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td width="50%" style="padding:0 6px 12px 0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf5ff; border:1px solid #ede9fe; border-radius:10px;">
+          <tr><td style="padding:16px 18px; text-align:center;">
+            <p style="margin:0 0 6px 0; font-size:13px; font-weight:600; color:#7c3aed;">Overall Score</p>
+            <p style="margin:0; font-size:24px; font-weight:800; color:#0f172a;">{{ overall_score|floatformat:1 }}/10</p>
+          </td></tr>
+        </table>
+      </td>
+      <td width="50%" style="padding:0 0 12px 6px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf5ff; border:1px solid #ede9fe; border-radius:10px;">
+          <tr><td style="padding:16px 18px; text-align:center;">
+            <p style="margin:0 0 6px 0; font-size:13px; font-weight:600; color:#7c3aed;">Technical</p>
+            <p style="margin:0; font-size:24px; font-weight:800; color:#0f172a;">{{ technical_score|floatformat:1 }}/10</p>
+          </td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td width="50%" style="padding:0 6px 0 0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf5ff; border:1px solid #ede9fe; border-radius:10px;">
+          <tr><td style="padding:16px 18px; text-align:center;">
+            <p style="margin:0 0 6px 0; font-size:13px; font-weight:600; color:#7c3aed;">Communication</p>
+            <p style="margin:0; font-size:24px; font-weight:800; color:#0f172a;">{{ communication_score|floatformat:1 }}/10</p>
+          </td></tr>
+        </table>
+      </td>
+      <td width="50%" style="padding:0 0 0 6px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf5ff; border:1px solid #ede9fe; border-radius:10px;">
+          <tr><td style="padding:16px 18px; text-align:center;">
+            <p style="margin:0 0 6px 0; font-size:13px; font-weight:600; color:#7c3aed;">Problem Solving</p>
+            <p style="margin:0; font-size:24px; font-weight:800; color:#0f172a;">{{ problem_solving_score|floatformat:1 }}/10</p>
+          </td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Note about recordings -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px; font-size:14px; color:#334155;">
+        <strong style="color:#0f172a;">📹 Note:</strong> The candidate's introduction video and full interview recording are available in the detailed report.
+      </td>
+    </tr>
+  </table>
+
+  <!-- Available in detailed report -->
+  <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Available in Detailed Report</p>
+  <ul style="margin:0 0 24px 0; padding:0 0 0 20px; font-size:14px; color:#334155; line-height:1.7;">
+    <li>✅ Introduction video recording</li>
+    <li>✅ Full interview session recording</li>
+    <li>✅ AI-generated feedback and analysis</li>
+    <li>✅ Question-by-question responses</li>
+    <li>✅ Gesture and body language analysis</li>
+    <li>✅ Proctoring alerts (if any)</li>
+  </ul>
+
+  <!-- CTA button -->
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td style="border-radius:8px; background-color:#7c3aed;">
+        <a href="{{ report_url }}" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:8px;">
+          View Full Report &amp; Videos
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Next steps -->
+  <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Next Steps</p>
+  <ol style="margin:0 0 24px 0; padding:0 0 0 20px; font-size:14px; color:#334155; line-height:1.7;">
+    <li>Review the detailed report and watch the introduction video</li>
+    <li>Analyze the AI-generated feedback</li>
+    <li>Check the interview recording for communication skills</li>
+    <li>Make your hiring decision</li>
+  </ol>
+
+  <p style="margin:0; font-size:13px; color:#94a3b8;">
+    This is an automated notification from SkilTechy. Please do not reply to this message.
+  </p>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Your SkilTechy Account{% endblock %}
+{% block preheader %}An account has been created for you on SkilTechy — here are your login details.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    Hi {{ first_name }} 👋
+  </h1>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    An account has been created for you on the <strong>SkilTechy</strong> assessment platform. Here are your login credentials.
+  </p>
+
+  <!-- Credentials -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf5ff; border:1px solid #ede9fe; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Your Login Credentials</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Email:</strong> {{ email }}</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Password:</strong> {{ password }}</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Role:</strong> {{ role_display }}</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Organization:</strong> {{ organization_name }}</p>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CTA button -->
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td style="border-radius:8px; background-color:#7c3aed;">
+        <a href="{{ login_url }}" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:8px;">
+          Log In to SkilTechy
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0; font-size:13px; color:#94a3b8;">
+    Please change your password after your first login.
+  </p>
+{% endblock %}

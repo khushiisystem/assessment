@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="light">
+  <title>{% block title %}SkilTechy{% endblock %}</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f1f5f9; -webkit-font-smoothing:antialiased;">
+  <!-- Preheader (hidden preview text) -->
+  <div style="display:none; max-height:0; overflow:hidden; opacity:0;">{% block preheader %}{% endblock %}</div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f1f5f9; padding:24px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%; max-width:600px; font-family:'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+          <!-- ── Brand header ── -->
+          <tr>
+            <td style="background-color:#3d075f; background-image:linear-gradient(135deg,#3d075f 0%,#7c3aed 100%); border-radius:14px 14px 0 0; padding:28px 32px; text-align:center;">
+              {% if logo_url %}
+                <img src="{{ logo_url }}" alt="SkilTechy" height="40" style="display:block; margin:0 auto; height:40px; border:0;">
+              {% else %}
+                <span style="font-size:26px; font-weight:800; letter-spacing:-0.5px; color:#ffffff;">Skil<span style="color:#d8b4fe;">Techy</span></span>
+              {% endif %}
+            </td>
+          </tr>
+
+          <!-- ── Content card ── -->
+          <tr>
+            <td style="background-color:#ffffff; padding:36px 32px; color:#334155; font-size:15px; line-height:1.6;">
+              {% block content %}{% endblock %}
+            </td>
+          </tr>
+
+          <!-- ── Footer ── -->
+          <tr>
+            <td style="background-color:#ffffff; border-radius:0 0 14px 14px; border-top:1px solid #eef2f7; padding:24px 32px; text-align:center;">
+              <p style="margin:0 0 6px 0; font-size:13px; color:#94a3b8;">
+                Need help? Contact us at
+                <a href="mailto:{{ support_email|default:'support@skiltechy.com' }}" style="color:#7c3aed; text-decoration:none;">{{ support_email|default:'support@skiltechy.com' }}</a>
+              </p>
+              <p style="margin:0; font-size:12px; color:#cbd5e1;">
+                &copy; {% now "Y" %} SkilTechy. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

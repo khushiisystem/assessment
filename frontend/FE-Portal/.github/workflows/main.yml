@@ -1,0 +1,75 @@
+name: Secure Build and Deploy FE Portal
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Environment Variables
+        run: |
+          if [[ "${GITHUB_REF##*/}" == "main" ]]; then
+            echo "ENV=prod" >> $GITHUB_ENV
+            echo "DEPLOY_HOST=${{ secrets.DEPLOY_HOST }}" >> $GITHUB_ENV
+            echo "DEPLOY_USER=${{ secrets.DEPLOY_USER }}" >> $GITHUB_ENV
+            echo "DEPLOY_PORT=${{ secrets.DEPLOY_PORT }}" >> $GITHUB_ENV
+            echo "SERVICE=assessment" >> $GITHUB_ENV
+            echo "APP_DIR=/home/zuserd/TranningAndCertification/core" >> $GITHUB_ENV
+          else
+            echo "ENV=develop" >> $GITHUB_ENV
+            echo "DEPLOY_HOST=${{ secrets.DEV_HOST }}" >> $GITHUB_ENV
+            echo "DEPLOY_USER=${{ secrets.DEV_USER }}" >> $GITHUB_ENV
+            echo "DEPLOY_PORT=${{ secrets.DEV_PORT }}" >> $GITHUB_ENV
+            echo "SERVICE=dev-assessment" >> $GITHUB_ENV
+            echo "APP_DIR=/home/dev_assessment/Assessment_Portal/TranningAndCertification/core" >> $GITHUB_ENV
+          fi
+
+      - name: Print SSH Port
+        run: |
+          echo "Using SSH Port: $DEPLOY_PORT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Project
+        run: |
+          if [[ "$ENV" == "prod" ]]; then
+            npm run build
+          else
+            npm run build -- --mode staging
+          fi
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ github.ref == 'refs/heads/main' && secrets.FRONTEND_KEY || secrets.DEV_FRONTEND_KEY }}
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p $DEPLOY_PORT $DEPLOY_HOST >> ~/.ssh/known_hosts
+
+      - name: Deploy to Server
+        run: |
+          # Copy dist folder
+          scp -P $DEPLOY_PORT -r dist \
+          $DEPLOY_USER@$DEPLOY_HOST:$APP_DIR
+
+          # Run commands on server
+          ssh -p $DEPLOY_PORT $DEPLOY_USER@$DEPLOY_HOST << EOF
+            sudo systemctl restart $SERVICE
+            sudo systemctl reload nginx
+          EOF

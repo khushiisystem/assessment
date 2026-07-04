@@ -1,0 +1,41 @@
+/* AssessmentResult.css or global.css */
+@media print {
+  /* Hide everything first */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Show only the print content */
+  .print-content,
+  .print-content * {
+    visibility: visible;
+  }
+  
+  /* Position print content at top */
+  .print-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  
+  /* Hide pagination and action buttons in print */
+  .print-content .no-print {
+    display: none !important;
+  }
+  
+  /* Remove hover effects */
+  .print-content tr:hover {
+    background-color: transparent !important;
+  }
+  
+  /* Ensure table fits on page */
+  table {
+    page-break-inside: auto;
+  }
+  
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}

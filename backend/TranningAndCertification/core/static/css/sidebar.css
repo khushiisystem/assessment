@@ -1,0 +1,81 @@
+/* Sidebar Styles */
+.sidebar {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.sidebar .nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: #0d6efd;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar .nav-link:hover::before,
+.sidebar .nav-link.active::before {
+    opacity: 1;
+}
+
+.sidebar .nav-link .badge {
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover .badge {
+    transform: scale(1.1);
+}
+
+/* Profile section */
+.sidebar .border-bottom {
+    border-color: #dee2e6 !important;
+}
+
+/* Section headings */
+.sidebar-heading {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Quick stats */
+.sidebar .border-top {
+    border-color: #dee2e6 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed !important;
+        z-index: 1040;
+        width: 280px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .sidebar-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1039;
+        display: none;
+    }
+    
+    .sidebar-backdrop.show {
+        display: block;
+    }
+}

@@ -1,0 +1,60 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Assessment Completed{% endblock %}
+{% block preheader %}You've successfully completed your assessment on SkilTechy.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    Assessment Completed!
+  </h1>
+  <p style="margin:0 0 6px 0; font-size:15px; color:#475569;">
+    Dear {{ candidate.get_full_name|default:candidate.username }},
+  </p>
+  <p style="margin:0 0 16px 0; font-size:15px; color:#475569;">
+    Congratulations! You have successfully completed the assessment on <strong>SkilTechy</strong>:
+  </p>
+  <h2 style="margin:0 0 24px 0; font-size:18px; font-weight:700; color:#0f172a;">{{ assessment.title }}</h2>
+
+  <!-- Results -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf5ff; border:1px solid #ede9fe; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Your Results</p>
+        <p style="margin:0 0 8px 0; font-size:24px; font-weight:700; color:#0f172a;">
+          {{ score }}/{{ total_marks }} ({{ percentage|floatformat:1 }}%)
+        </p>
+        <p style="margin:0; font-size:13px; color:#94a3b8;">Completed on: {{ end_time|date:"F d, Y at h:i A" }}</p>
+      </td>
+    </tr>
+  </table>
+
+  <!-- What's next -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">What's Next?</p>
+        <ul style="margin:0; padding-left:20px; color:#334155; font-size:14px; line-height:1.7;">
+          <li>Your responses have been recorded and are being evaluated</li>
+          <li>You will receive detailed feedback from the examiner soon</li>
+          <li>Check your dashboard for more assessments</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CTA button -->
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td style="border-radius:8px; background-color:#7c3aed;">
+        <a href="{{ SITE_URL }}/candidate/dashboard/" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:8px;">
+          View Dashboard
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0; font-size:14px; color:#475569;">
+    Best regards,<br>
+    The SkilTechy Team
+  </p>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Subscription Expired — SkilTechy{% endblock %}
+{% block preheader %}Your {{ plan_name }} subscription has expired and you've been moved to the Free Tier.{% endblock %}
+
+{% block content %}
+  <h1 style="margin:0 0 6px 0; font-size:22px; font-weight:700; color:#0f172a;">
+    Hi {{ user_name }},
+  </h1>
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    Your <strong>{{ plan_name }}</strong> subscription on <strong>SkilTechy</strong> has expired, and your account has been downgraded to the <strong>Free Tier</strong>.
+  </p>
+
+  <!-- Plan status -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; border:1px solid #eef2f7; border-radius:10px; margin:0 0 24px 0;">
+    <tr>
+      <td style="padding:18px 20px;">
+        <p style="margin:0 0 10px 0; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#7c3aed;">Subscription Status</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Previous Plan:</strong> {{ plan_name }}</p>
+        <p style="margin:4px 0; font-size:14px; color:#334155;"><strong style="color:#0f172a;">Current Plan:</strong> Free Tier</p>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0 0 24px 0; font-size:15px; color:#475569;">
+    To continue with full access, please upgrade your plan.
+  </p>
+
+  <!-- CTA button -->
+  <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px 0;">
+    <tr>
+      <td style="border-radius:8px; background-color:#7c3aed;">
+        <a href="{{ upgrade_url }}" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none; border-radius:8px;">
+          Upgrade My Plan
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0; font-size:13px; color:#94a3b8;">
+    If the button above doesn't work, copy and paste this link into your browser:<br>
+    <a href="{{ upgrade_url }}" style="color:#7c3aed; text-decoration:none;">{{ upgrade_url }}</a>
+  </p>
+{% endblock %}
