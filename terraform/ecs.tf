@@ -58,7 +58,7 @@ resource "aws_iam_instance_profile" "ecs_profile" {
 # EC2 Launch Template
 resource "aws_launch_template" "ecs_lt" {
   name_prefix   = "ecs-ec2-"
-  image_id      = "ami-0c802847a501da8c8"
+  image_id      = "ami-07655e24561dca245"
   instance_type = "t3.micro"
 
   iam_instance_profile {
