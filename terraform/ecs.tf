@@ -32,6 +32,11 @@ resource "aws_iam_role_policy_attachment" "ecs_task_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_iam_role_policy_attachment" "ecs_task_cloudwatch_policy" {
+  role       = aws_iam_role.ecs_task_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+}
+
 # IAM Role for EC2 ECS Instances
 resource "aws_iam_role" "ecs_ec2_role" {
   name = "ecs-ec2-role"
@@ -107,6 +112,15 @@ resource "aws_ecs_task_definition" "frontend" {
       containerPort = 80
       hostPort      = 80
     }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        "awslogs-group"         = "/ecs/frontend-task"
+        "awslogs-region"        = "ap-southeast-1"
+        "awslogs-stream-prefix" = "ecs"
+        "awslogs-create-group"  = "true"
+      }
+    }
   }])
 }
 
@@ -126,6 +140,15 @@ resource "aws_ecs_task_definition" "backend" {
       containerPort = 8000
       hostPort      = 8000
     }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        "awslogs-group"         = "/ecs/backend-task"
+        "awslogs-region"        = "ap-southeast-1"
+        "awslogs-stream-prefix" = "ecs"
+        "awslogs-create-group"  = "true"
+      }
+    }
   }])
 }
 
