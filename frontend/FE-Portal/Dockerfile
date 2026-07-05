@@ -3,6 +3,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ARG VITE_API_BASE_URL
+ARG VITE_APP_ENV
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_APP_ENV=$VITE_APP_ENV
 RUN npm run build
 FROM nginx:alpine
 COPY --from=0 /app/dist /usr/share/nginx/html
