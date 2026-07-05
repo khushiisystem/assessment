@@ -171,11 +171,11 @@ resource "aws_ecs_task_definition" "backend" {
       }]
       links = ["mysql:mysql"]
       environment = [
-        { name = "SECRET_KEY",             value = "QdmVRKh8ObhMIU1Q16EFpfJt9z4wa92ZX0VBnMEYkfQbhUwzebgo1IkmBzTCZuhM8C8" },
+        { name = "SECRET_KEY",             value = "a54FjUiRifulAvxKkz4tFYxy2IYI9UcK6dlLe8oeIstrZNt_dKjnM_E_vaLlKZVoBeI" },
         { name = "DEBUG",                  value = "True" },
         { name = "DJANGO_SETTINGS_MODULE", value = "djecommerce.settings.development" },
         { name = "DB_HOST",                value = "mysql" },
-        { name = "DB_NAME",                value = "ecommerce" },
+        { name = "DB_NAME",                value = "assessment" },
         { name = "DB_USER",                value = "djangouser" },
         { name = "DB_PASSWORD",            value = "django" },
         { name = "DB_PORT",                value = "3306" }
